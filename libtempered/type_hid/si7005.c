@@ -28,8 +28,8 @@ bool tempered_type_hid_get_temperature_si7005(
 	
 	// According to the Silicon Labs Si7005 datasheet, there's 32 codes per ℃
 	// with 0x0000 = -50℃.
-	*tempC = ((float)temp) / 32 - 50;
-	
+	//*tempC = ((float)temp) / 32 - 50;
+	*tempC = ((float)temp) * 175.72 / 65536 - 46.8;
 	return true;
 }
 
@@ -66,13 +66,14 @@ bool tempered_type_hid_get_humidity_si7005(
 	// These formulas and values are based on the Silicon Labs Si7005 datasheet
 	
 	// There's 16 codes per %RH, with 0x0000 = -24%RH
-	float relhum = ((float)rh) / 16 - 24;
+	//float relhum = ((float)rh) / 16 - 24;
+	float relhum = ((float)rh) * 125 / 65536 - 6;
 	
 	// Linearization
-	relhum -= -0.00393 * relhum * relhum + 0.4008 * relhum - 4.7844;
+	//relhum -= -0.00393 * relhum * relhum + 0.4008 * relhum - 4.7844;
 	
 	// Temperature compensation
-	relhum += ( tempC - 30 ) * ( 0.00237 * relhum + 0.1973 );
+	//relhum += ( tempC - 30 ) * ( 0.00237 * relhum + 0.1973 );
 	
 	*rel_hum = relhum;
 	
