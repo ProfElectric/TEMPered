@@ -18,20 +18,26 @@ static float celsius_to_kelvin( float temperature )
 static float celsius_to_fahrenheit( float temperature )
 {
 	// http://en.wikipedia.org/wiki/Fahrenheit
-	return temperature * 9 / 5 + 32;
+	//return temperature * 9 / 5 + 32;
+	//Most processors multiply faster than they divide.  Below is equal to above.
+	return temperature * 1.8 + 32;
 }
 
 static float celsius_to_rankine( float temperature )
 {
 	// http://en.wikipedia.org/wiki/Rankine_scale
-	return ( temperature + 273.15 ) * 9 / 5;
+	//return ( temperature + 273.15 ) * 9 / 5;
+	//Most processors multiply faster than they divide.  Below is equal to above.
+	return ( temperature + 273.15 ) * 1.8 + 32;
 }
 
 static float celsius_to_newton( float temperature )
 {
 	// The Newton temperature scale was devised by Isaac Newton around 1700.
 	// http://en.wikipedia.org/wiki/Newton_scale
-	return temperature * 33 / 100;
+	//return temperature * 33 / 100;
+	//Most processors multiply faster than they divide.  Below is equal to above.
+	return temperature * .33;
 }
 
 struct tempered_util__temp_scale const tempered_util__known_temp_scales[] = {
